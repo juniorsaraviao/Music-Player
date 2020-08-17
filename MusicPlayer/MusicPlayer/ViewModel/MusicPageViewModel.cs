@@ -158,7 +158,7 @@ namespace MusicPlayer.Model
 
       public async Task GetRadialBackground()
       {
-         await Task.Delay(500);
+         await Task.Delay(10);
          var radialGradient = new RadialGradientBrush()
          {
             Center = new Point(0.0, 0.0),

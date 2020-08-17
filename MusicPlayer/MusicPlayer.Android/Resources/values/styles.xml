@@ -28,12 +28,12 @@
     <item name="colorAccent">#FF4081</item>
   </style>
 
-  <style name="Theme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="Theme.Splash" parent="Theme.AppCompat.Light">
     <item name="android:windowBackground">@drawable/font</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
     <item name="colorPrimaryDark">#313131</item>
-    <item name="android:windowLightStatusBar">true</item>
-    <item name="android:windowLightNavigationBar">true</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+    <!--<item name="android:windowTranslucentStatus">true</item>-->
   </style>
 </resources>
