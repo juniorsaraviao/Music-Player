@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fontAwesome="clr-namespace:MusicPlayer.Util" 
+             xmlns:model="clr-namespace:MusicPlayer.Model" 
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MusicPlayer.View.MusicPage">
+
+    <ContentPage.BindingContext>
+        <model:MusicPageViewModel x:Name="Reference"/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <ScrollView Background="{Binding RadialGradient}">
+            <StackLayout Margin="10">                
+                <StackLayout Padding="5">
+                    <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Setting}"
+                       FontFamily="{StaticResource FontAwesomeSolid}"
+                       TextColor="White"
+                       FontSize="20"
+                       HorizontalTextAlignment="End"/>
+                </StackLayout>
+                
+                <Label Text="{Binding Greeting}"
+                       FontFamily="PatuaOne"
+                       TextColor="White"
+                       FontSize="25"
+                       HorizontalTextAlignment="Start"/>
+
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding MyPlaylist}"                                    
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand"
+                                    HeightRequest="200">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="90"
+                                      HeightRequest="55"
+                                      Padding="5">
+                                    <BoxView CornerRadius="5,5,5,5"
+                                                 BackgroundColor="#3e4240"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <forms:CachedImage Source="{Binding PlaylistUrl}"
+                                                           BackgroundColor="Transparent"
+                                                           LoadingPlaceholder="compactdisc2"
+                                                           ErrorPlaceholder="compactdisc2"
+                                                HeightRequest="55"
+                                                WidthRequest="55"
+                                                Aspect="AspectFit">
+                                            <forms:CachedImage.Transformations>
+                                                <transformations:CornersTransformation 
+                                                    CornersTransformType="TopLeftRounded,BottomLeftRounded"
+                                                    TopLeftCornerSize="5"
+                                                    BottomLeftCornerSize="5"/>
+                                            </forms:CachedImage.Transformations>
+                                        </forms:CachedImage>
+                                        <Label TextColor="White"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   FontFamily="PatuaOne"
+                                                   HorizontalTextAlignment="Start"
+                                                   Text="{Binding PlaylistName}"
+                                                   FontSize="12"/>
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>                        
+                    </CollectionView>                   
+                </StackLayout>
+
+                <Label Text="{Binding RecentlyPlayedTitle}"
+                   FontFamily="PatuaOne"
+                   TextColor="White"
+                   FontSize="25"
+                   HorizontalTextAlignment="Start"/>
+                
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding MyPlaylist}"
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand"
+                                    HeightRequest="150"
+                                    SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="5"
+                                      BackgroundColor="Black">                                    
+                                    <StackLayout>
+                                        <forms:CachedImage 
+                                            Source="{Binding PlaylistUrl}"
+                                            BackgroundColor="Transparent"
+                                            LoadingPlaceholder="compactdisc2"
+                                            ErrorPlaceholder="compactdisc2"
+                                            HeightRequest="120"
+                                            WidthRequest="120"
+                                            Aspect="AspectFit">                                            
+                                        </forms:CachedImage>
+                                        <Label TextColor="White"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               FontFamily="PatuaOne"
+                                               HorizontalTextAlignment="Start"
+                                               Text="{Binding PlaylistName}"
+                                               FontSize="12"/>
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+
+                <Label Text="{Binding TopMusicTitle}"
+                       FontFamily="PatuaOne"
+                       TextColor="White"
+                       FontSize="25"
+                       HorizontalTextAlignment="Start"/>
+
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding FavoriteMusicList}"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                Margin="5"
+                                HeightRequest="780">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="15"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Orientation="Horizontal" Spacing="2" Grid.Column="0">
+                                        <forms:CachedImage Source="{Binding SongFileCover}"
+                                                       ErrorPlaceholder="compactdisc2"
+                                                       LoadingPlaceholder="compactdisc2"
+                                                       HeightRequest="72" WidthRequest="72">
+                                            <forms:CachedImage.Transformations>
+                                                <transformations:RoundedTransformation Radius="20"/>
+                                            </forms:CachedImage.Transformations>
+                                        </forms:CachedImage>
+                                    </StackLayout>
+                                    <StackLayout Margin="5" Spacing="0"
+                                                 Grid.Column="1"
+                                                 Orientation="Horizontal"                                                 
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand">
+                                        <Grid VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand">
+                                            <StackLayout Orientation="Horizontal">
+                                                <StackLayout VerticalOptions="CenterAndExpand"
+                                                             HorizontalOptions="FillAndExpand">
+                                                    <Label Text="{Binding SongName}" FontSize="15" 
+                                                           FontAttributes="Bold" TextColor="White"/>
+                                                    <Label Text="{Binding SingerName}" FontSize="13"
+                                                           TextColor="White"/>
+                                                </StackLayout>
+                                                <StackLayout VerticalOptions="CenterAndExpand"
+                                                             HorizontalOptions="EndAndExpand">
+                                                    <Label HorizontalTextAlignment="End"
+                                                           VerticalTextAlignment="Center"
+                                                           IsVisible="{Binding IsNotLike}"
+                                                           FontSize="18"
+                                                           TextColor="#06bb7f"
+                                                           Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
+                                                           FontFamily="{StaticResource FontAwesomeRegular}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=LikeCommand}"
+                                                                                  CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Label HorizontalTextAlignment="End"
+                                                           VerticalTextAlignment="Center"
+                                                           IsVisible="{Binding IsLike}"
+                                                           FontSize="18"
+                                                           TextColor="#06bb7f"
+                                                           Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
+                                                           FontFamily="{StaticResource FontAwesomeSolid}">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=LikeCommand}"
+                                                                                  CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>                
+            </StackLayout>
+        </ScrollView>              
+    </ContentPage.Content>
+</ContentPage>
