@@ -189,10 +189,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\font.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionMusicPlayerAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionMusicPlayerAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionMusicPlayerAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionMusicPlayerAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
