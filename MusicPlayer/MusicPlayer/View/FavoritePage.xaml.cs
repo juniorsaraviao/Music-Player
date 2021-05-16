@@ -21,7 +21,6 @@ namespace MusicPlayer.View
       protected async override void OnAppearing()
       {
          base.OnAppearing();
-         await ((FavoritePageViewModel)BindingContext).GetRadialBackground();
          await ((FavoritePageViewModel)BindingContext).GetFavoritePlaylist();
       }
    }

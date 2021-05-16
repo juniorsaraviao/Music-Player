@@ -16,7 +16,16 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <ScrollView Background="{Binding RadialGradient}">
+        <ScrollView>
+            <ScrollView.Background>
+                <RadialGradientBrush Center="0.0,0.0"
+                                     Radius="0.5">
+                    <GradientStop Color="DarkGreen"
+                                  Offset="0.1"/>
+                    <GradientStop Color="Black"
+                                  Offset="1.0"/>
+                </RadialGradientBrush>
+            </ScrollView.Background>
             <StackLayout Margin="10">                
                 <StackLayout Padding="5">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Setting}"
