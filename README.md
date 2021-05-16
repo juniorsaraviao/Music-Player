@@ -12,7 +12,7 @@ Music Player App project developed using Xamarin Forms and the following:
 - Splash Activity  
 - Android Asset Studio  
 - MVVM Pattern  
-- Xamarin Forms 4.8.0.1269  
+- Xamarin Forms 5.0.0.2012  
 ## GIF  
 ![Gif](https://raw.githubusercontent.com/juniorsaraviao/Music-Player/master/resources/MusicPlayer.gif)  
 ## IMAGES  
