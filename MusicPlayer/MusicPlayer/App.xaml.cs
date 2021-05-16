@@ -10,7 +10,7 @@ namespace MusicPlayer
       public App()
       {         
          InitializeComponent();
-         MainPage = new NavigationPage( new MainTabbedPage() );
+         MainPage = new MainTabbedPage();
       }
 
       protected override void OnStart()
