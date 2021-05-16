@@ -69,13 +69,15 @@ namespace MusicPlayer.ViewModel
       public FavoritePageViewModel()
       {
          FavoritePlaylist = new ObservableCollection<Music>();
+         MessagingCenter.Subscribe<MusicPageViewModel>(this, "Reload", (sender) => {
+            GetFavoritePlaylist();
+         });
       }
       
-      public async Task GetFavoritePlaylist()
+      public void GetFavoritePlaylist()
       {
          using (UserDialogs.Instance.Loading())
          {
-            await Task.Delay(500);
             if (string.IsNullOrEmpty(Preferences.Get("dataUpdated", null)))
             {
                IsVisibleList = false;

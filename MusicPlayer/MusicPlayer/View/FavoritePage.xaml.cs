@@ -18,10 +18,10 @@ namespace MusicPlayer.View
          InitializeComponent();
       }
 
-      protected async override void OnAppearing()
+      protected override void OnAppearing()
       {
          base.OnAppearing();
-         await ((FavoritePageViewModel)BindingContext).GetFavoritePlaylist();
+         ((FavoritePageViewModel)BindingContext).GetFavoritePlaylist();
       }
    }
 }

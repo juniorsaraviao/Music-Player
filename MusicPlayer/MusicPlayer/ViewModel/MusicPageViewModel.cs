@@ -95,6 +95,7 @@ namespace MusicPlayer.Model
          if ( selectedMusic.IsLike )
          {
             UserDialogs.Instance.Toast("Include in Favorite Music", new TimeSpan(500));
+            MessagingCenter.Send(this, "Reload");
          }
          else
          {
