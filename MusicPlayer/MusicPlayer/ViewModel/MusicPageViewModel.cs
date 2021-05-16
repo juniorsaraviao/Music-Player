@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -19,7 +18,6 @@ namespace MusicPlayer.Model
       private string                         _greeting;
       private ObservableCollection<Playlist> _myPlaylist;
       private ObservableCollection<Music>    _favoriteMusicList;
-      private RadialGradientBrush            _radialGradient;
       private string                         _recentlyPlayedTitle;
       private string                         _topMusicTitle;
 
@@ -47,15 +45,6 @@ namespace MusicPlayer.Model
          set 
          {
             _myPlaylist = value;
-            OnPropertyChanged();
-         }
-      }
-      public RadialGradientBrush RadialGradient
-      {
-         get => _radialGradient;
-         set
-         {
-            _radialGradient = value;
             OnPropertyChanged();
          }
       }
@@ -154,31 +143,7 @@ namespace MusicPlayer.Model
          {
             throw;
          }
-      }
-
-      public async Task GetRadialBackground()
-      {
-         await Task.Delay(10);
-         var radialGradient = new RadialGradientBrush()
-         {
-            Center = new Point(0.0, 0.0),
-            Radius = 0.5d,
-            GradientStops = new GradientStopCollection()
-            {
-               new GradientStop()
-               {
-                  Color = Color.DarkGreen,
-                  Offset = 0.1f
-               },
-               new GradientStop()
-               {
-                  Color = Color.Black,
-                  Offset = 1.0f
-               }
-            }
-         };
-         RadialGradient = radialGradient;
-      }
+      }      
 
       public MusicPageViewModel()
       {         

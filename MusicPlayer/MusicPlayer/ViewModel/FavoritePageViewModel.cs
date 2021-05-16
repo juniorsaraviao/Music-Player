@@ -2,11 +2,9 @@
 using MusicPlayer.Model;
 using MusicPlayer.View;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -17,7 +15,6 @@ namespace MusicPlayer.ViewModel
 {
    public class FavoritePageViewModel : BaseViewModel
    {
-      private RadialGradientBrush         _radialGradient;
       private ObservableCollection<Music> _favoritePlaylist;
       private bool                        _isVisibleList;
       private string                      _favoriteMusicTitle;
@@ -32,16 +29,7 @@ namespace MusicPlayer.ViewModel
             _favoritePlaylist = value;
             OnPropertyChanged();
          }
-      }
-      public RadialGradientBrush RadialGradient
-      {
-         get => _radialGradient;
-         set
-         {
-            _radialGradient = value;
-            OnPropertyChanged();
-         }
-      }
+      }      
       public bool IsVisibleList
       {
          get => _isVisibleList;
@@ -82,32 +70,7 @@ namespace MusicPlayer.ViewModel
       {
          FavoritePlaylist = new ObservableCollection<Music>();
       }
-
-      public async Task GetRadialBackground()
-      {
-         await Task.Delay(1000);
-         var radialGradient = new RadialGradientBrush()
-         {
-            Center = new Point(0.0, 0.0),
-            Radius = 0.5d,
-            GradientStops = new GradientStopCollection()
-            {
-               new GradientStop()
-               {
-                  Color = Color.DarkGreen,
-                  Offset = 0.1f
-               },
-               new GradientStop()
-               {
-                  Color = Color.Black,
-                  Offset = 1.0f
-               }
-            }
-         };
-         RadialGradient = radialGradient;
-         FavoriteMusicTitle = "Favorite Music";
-         //await GetFavoritePlaylist();         
-      }
+      
       public async Task GetFavoritePlaylist()
       {
          using (UserDialogs.Instance.Loading())
