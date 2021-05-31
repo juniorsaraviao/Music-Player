@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using MusicPlayer.Constant;
 using MusicPlayer.Service;
 using MusicPlayer.ViewModel;
 using System;
@@ -11,11 +12,18 @@ namespace MusicPlayer.Model
 {
    public class MusicPageViewModel : BaseViewModel
    {
+
+      #region Fields
+
       private string          _greeting;
       private IList<Playlist> _myPlaylist;
       private IList<Music>    _favoriteMusicList;
       private string          _recentlyPlayedTitle;
       private string          _topMusicTitle;
+
+      #endregion
+
+      #region Properties
 
       public string RecentlyPlayedTitle
       {
@@ -63,23 +71,39 @@ namespace MusicPlayer.Model
          }
       }
 
+      #endregion
+
+      #region Commands
+
+      public ICommand LikeCommand => new Command<Music>(async (music) => await LikeMethod(music));
+
+      #endregion
+
+      #region Constructor
+
+      public MusicPageViewModel()
+      {
+      }
+
+      #endregion
+
+      #region Methods
+
       private void DefineGreeting()
       {
          if( DateTime.Now.Hour >= 6 && DateTime.Now.Hour < 12 )
          {
-            Greeting = "Good morning";
+            Greeting = Constants.GoodMorning;
          }
          else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18 )
          {
-            Greeting = "Good afternoon";
+            Greeting = Constants.GoodAfternoon;
          }
          else
          {
-            Greeting = "Good evening";
+            Greeting = Constants.GoodEvening;
          }
-      }
-
-      public ICommand LikeCommand => new Command<Music>( async (music) => await LikeMethod(music) );
+      }      
 
       private async Task LikeMethod(Music selectedMusic)
       {
@@ -93,14 +117,14 @@ namespace MusicPlayer.Model
 
             if (selectedMusic.IsLike && isUpdated)
             {
-               UserDialogs.Instance.Toast("Include in Favorite Music", new TimeSpan(500));
+               UserDialogs.Instance.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
             }
             else
             {
-               UserDialogs.Instance.Toast("Remove from Favorite Music", new TimeSpan(500));
+               UserDialogs.Instance.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
             }
 
-            MessagingCenter.Send(this, "Reload");
+            MessagingCenter.Send(this, Constants.MessagingCenterReload);
          }                  
       }
 
@@ -113,18 +137,17 @@ namespace MusicPlayer.Model
                DefineGreeting();
                MyPlaylist          = await MusicService.GetPlayLists();
                FavoriteMusicList   = await MusicService.GetAllSongs();              
-               RecentlyPlayedTitle = "Recently played";
-               TopMusicTitle       = "Top Music";               
+               RecentlyPlayedTitle = Constants.RecentlyPlayedTitle;
+               TopMusicTitle       = Constants.TopMusicTitle;               
             }            
          }
          catch (Exception)
          {
             throw;
          }
-      }      
-
-      public MusicPageViewModel()
-      {         
       }
+
+      #endregion          
+      
    }
 }

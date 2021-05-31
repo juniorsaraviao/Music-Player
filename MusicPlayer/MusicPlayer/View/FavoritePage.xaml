@@ -57,19 +57,19 @@
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Orientation="Horizontal" Spacing="2" Grid.Column="0">
                                         <forms:CachedImage Source="{Binding SongFileCover}"
-                                                       ErrorPlaceholder="compactdisc2"
-                                                       LoadingPlaceholder="compactdisc2"
-                                                       HeightRequest="72" WidthRequest="72">
+                                                           ErrorPlaceholder="compactdisc2"
+                                                           LoadingPlaceholder="compactdisc2"
+                                                           HeightRequest="72" WidthRequest="72">
                                             <forms:CachedImage.Transformations>
                                                 <transformations:RoundedTransformation Radius="20"/>
                                             </forms:CachedImage.Transformations>
                                         </forms:CachedImage>
                                     </StackLayout>
-                                    <StackLayout Margin="5" Spacing="0" 
-                                             Orientation="Horizontal"
-                                             Grid.Column="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="FillAndExpand">
+                                    <StackLayout Margin="5" Spacing="0"
+                                                 Orientation="Horizontal"
+                                                 Grid.Column="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand">
 
                                         <Grid VerticalOptions="FillAndExpand"
                                               HorizontalOptions="FillAndExpand">                                            
