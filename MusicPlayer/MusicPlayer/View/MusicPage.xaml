@@ -31,7 +31,7 @@
             <StackLayout Margin="10">                
                 <StackLayout Padding="5">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Setting}"
-                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           FontFamily="FAFree-Solid"
                            TextColor="White"
                            FontSize="20"
                            HorizontalTextAlignment="End"/>
@@ -190,7 +190,7 @@
                                                            FontSize="18"
                                                            TextColor="#06bb7f"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
-                                                           FontFamily="{StaticResource FontAwesomeRegular}">
+                                                           FontFamily="FAFree-Regular">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
                                                                                   CommandParameter="{Binding .}"/>
@@ -202,7 +202,7 @@
                                                            FontSize="18"
                                                            TextColor="#06bb7f"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
-                                                           FontFamily="{StaticResource FontAwesomeSolid}">
+                                                           FontFamily="FAFree-Solid">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
                                                                                   CommandParameter="{Binding .}"/>

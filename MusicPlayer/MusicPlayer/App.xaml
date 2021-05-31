@@ -5,23 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MusicPlayer.App">
-    <Application.Resources>
-        <OnPlatform x:TypeArguments="x:String" 
-                x:Key="FontAwesomeBrands">
-            <On Platform="Android" 
-                    Value="FontAwesome5Brands-Regular-400.otf#Regular" />
-        </OnPlatform>
-
-        <OnPlatform x:TypeArguments="x:String" 
-                x:Key="FontAwesomeSolid">
-            <On Platform="Android" 
-                    Value="FontAwesome5Free-Solid-900.otf#Regular" />
-        </OnPlatform>
-
-        <OnPlatform x:TypeArguments="x:String" 
-                x:Key="FontAwesomeRegular">
-            <On Platform="Android" 
-                    Value="FontAwesome5Free-Regular-400.otf#Regular" />
-        </OnPlatform>
+    <Application.Resources>        
     </Application.Resources>
 </Application>

@@ -89,9 +89,6 @@
     <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\FontAwesome5Brands-Regular-400.otf" />
-    <AndroidAsset Include="Assets\FontAwesome5Free-Regular-400.otf" />
-    <AndroidAsset Include="Assets\FontAwesome5Free-Solid-900.otf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -198,7 +195,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionMusicPlayerAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionMusicPlayerAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionMusicPlayerAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionMusicPlayerAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

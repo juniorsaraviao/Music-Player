@@ -12,11 +12,19 @@
 
   <ItemGroup>
     <None Remove="Font\Adamina-Regular.ttf" />
+    <None Remove="Font\FontAwesome5Brands-Regular-400.otf" />
+    <None Remove="Font\FontAwesome5Free-Regular-400.otf" />
+    <None Remove="Font\FontAwesome5Free-Solid-900.otf" />
     <None Remove="Font\PatuaOne-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Font\Adamina-Regular.ttf" />
+    <EmbeddedResource Include="Font\FontAwesome5Brands-Regular-400.otf" />
+    <EmbeddedResource Include="Font\FontAwesome5Free-Regular-400.otf" />
+    <EmbeddedResource Include="Font\FontAwesome5Free-Solid-900.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Font\PatuaOne-Regular.ttf" />
   </ItemGroup>
 

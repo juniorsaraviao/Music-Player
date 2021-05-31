@@ -89,7 +89,7 @@
                                                            FontSize="18"
                                                            TextColor="#06bb7f"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Play}"
-                                                           FontFamily="{StaticResource FontAwesomeSolid}">
+                                                           FontFamily="FAFree-Solid">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=PlayCommand}"
                                                                                   CommandParameter="{Binding .}"/>
