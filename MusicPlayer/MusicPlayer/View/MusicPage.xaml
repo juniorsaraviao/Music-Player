@@ -8,6 +8,7 @@
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
+             x:Name="ThisPage"
              NavigationPage.HasNavigationBar="False"
              x:Class="MusicPlayer.View.MusicPage">
 
@@ -26,13 +27,14 @@
                                   Offset="1.0"/>
                 </RadialGradientBrush>
             </ScrollView.Background>
+            
             <StackLayout Margin="10">                
                 <StackLayout Padding="5">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Setting}"
-                       FontFamily="{StaticResource FontAwesomeSolid}"
-                       TextColor="White"
-                       FontSize="20"
-                       HorizontalTextAlignment="End"/>
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           TextColor="White"
+                           FontSize="20"
+                           HorizontalTextAlignment="End"/>
                 </StackLayout>
                 
                 <Label Text="{Binding Greeting}"
@@ -56,15 +58,15 @@
                                       HeightRequest="55"
                                       Padding="5">
                                     <BoxView CornerRadius="5,5,5,5"
-                                                 BackgroundColor="#3e4240"/>
+                                             BackgroundColor="#3e4240"/>
                                     <StackLayout Orientation="Horizontal">
                                         <forms:CachedImage Source="{Binding PlaylistUrl}"
                                                            BackgroundColor="Transparent"
                                                            LoadingPlaceholder="compactdisc2"
                                                            ErrorPlaceholder="compactdisc2"
-                                                HeightRequest="55"
-                                                WidthRequest="55"
-                                                Aspect="AspectFit">
+                                                           HeightRequest="55"
+                                                           WidthRequest="55"
+                                                           Aspect="AspectFit">
                                             <forms:CachedImage.Transformations>
                                                 <transformations:CornersTransformation 
                                                     CornersTransformType="TopLeftRounded,BottomLeftRounded"
@@ -73,12 +75,12 @@
                                             </forms:CachedImage.Transformations>
                                         </forms:CachedImage>
                                         <Label TextColor="White"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Center"
-                                                   FontFamily="PatuaOne"
-                                                   HorizontalTextAlignment="Start"
-                                                   Text="{Binding PlaylistName}"
-                                                   FontSize="12"/>
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               FontFamily="PatuaOne"
+                                               HorizontalTextAlignment="Start"
+                                               Text="{Binding PlaylistName}"
+                                               FontSize="12"/>
                                     </StackLayout>
                                 </Grid>
                             </DataTemplate>
@@ -87,10 +89,10 @@
                 </StackLayout>
 
                 <Label Text="{Binding RecentlyPlayedTitle}"
-                   FontFamily="PatuaOne"
-                   TextColor="White"
-                   FontSize="25"
-                   HorizontalTextAlignment="Start"/>
+                       FontFamily="PatuaOne"
+                       TextColor="White"
+                       FontSize="25"
+                       HorizontalTextAlignment="Start"/>
                 
                 <StackLayout>
                     <CollectionView ItemsSource="{Binding MyPlaylist}"
@@ -138,10 +140,10 @@
 
                 <StackLayout>
                     <CollectionView ItemsSource="{Binding FavoriteMusicList}"
-                                VerticalOptions="FillAndExpand"
-                                HorizontalOptions="FillAndExpand"
-                                Margin="5"
-                                HeightRequest="780">
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand"
+                                    Margin="5"
+                                    HeightRequest="780">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical"
@@ -190,7 +192,7 @@
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
                                                            FontFamily="{StaticResource FontAwesomeRegular}">
                                                         <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=LikeCommand}"
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
                                                                                   CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
@@ -202,7 +204,7 @@
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
                                                            FontFamily="{StaticResource FontAwesomeSolid}">
                                                         <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=LikeCommand}"
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
                                                                                   CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>

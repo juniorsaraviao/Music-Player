@@ -1,25 +1,21 @@
 ﻿using Acr.UserDialogs;
 using MusicPlayer.Service;
 using MusicPlayer.ViewModel;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MusicPlayer.Model
 {
    public class MusicPageViewModel : BaseViewModel
    {
-      private string                         _greeting;
-      private ObservableCollection<Playlist> _myPlaylist;
-      private ObservableCollection<Music>    _favoriteMusicList;
-      private string                         _recentlyPlayedTitle;
-      private string                         _topMusicTitle;
+      private string          _greeting;
+      private IList<Playlist> _myPlaylist;
+      private IList<Music>    _favoriteMusicList;
+      private string          _recentlyPlayedTitle;
+      private string          _topMusicTitle;
 
       public string RecentlyPlayedTitle
       {
@@ -39,7 +35,7 @@ namespace MusicPlayer.Model
             OnPropertyChanged();
          }
       }
-      public ObservableCollection<Playlist> MyPlaylist
+      public IList<Playlist> MyPlaylist
       {
          get => _myPlaylist;
          set 
@@ -48,7 +44,7 @@ namespace MusicPlayer.Model
             OnPropertyChanged();
          }
       }
-      public ObservableCollection<Music> FavoriteMusicList
+      public IList<Music> FavoriteMusicList
       {
          get => _favoriteMusicList;
          set
@@ -83,24 +79,29 @@ namespace MusicPlayer.Model
          }
       }
 
-      public ICommand LikeCommand => new Command<Music>( LikeMethod );
+      public ICommand LikeCommand => new Command<Music>( async (music) => await LikeMethod(music) );
 
-      private void LikeMethod(Music selectedMusic)
+      private async Task LikeMethod(Music selectedMusic)
       {
-         var index = FavoriteMusicList.IndexOf(selectedMusic);
-         selectedMusic.IsLike     = !selectedMusic.IsLike;
-         FavoriteMusicList[index] = selectedMusic;
-         var saveData             = JsonConvert.SerializeObject(FavoriteMusicList);
-         Preferences.Set("dataUpdated", saveData);
-         if ( selectedMusic.IsLike )
+         using (UserDialogs.Instance.Loading())
          {
-            UserDialogs.Instance.Toast("Include in Favorite Music", new TimeSpan(500));
+            selectedMusic.IsLike  = !selectedMusic.IsLike;
+            var isUpdated         = await MusicService.UpdateSong(selectedMusic);
+
+            FavoriteMusicList.Clear();
+            FavoriteMusicList = await MusicService.GetAllSongs();
+
+            if (selectedMusic.IsLike && isUpdated)
+            {
+               UserDialogs.Instance.Toast("Include in Favorite Music", new TimeSpan(500));
+            }
+            else
+            {
+               UserDialogs.Instance.Toast("Remove from Favorite Music", new TimeSpan(500));
+            }
+
             MessagingCenter.Send(this, "Reload");
-         }
-         else
-         {
-            UserDialogs.Instance.Toast("Remove from Favorite Music", new TimeSpan(500));
-         }         
+         }                  
       }
 
       public async Task GetSongs()
@@ -108,36 +109,12 @@ namespace MusicPlayer.Model
          try
          {
             using (UserDialogs.Instance.Loading())
-            {
-               if ( string.IsNullOrEmpty(Preferences.Get("dataUpdated", null)) )
-               {
-                  var SongsData = new ObservableCollection<Music>();
-                  var songs     = await MusicService.GetAllSongs(1, 10);
-                  songs.ForEach(x =>
-                  {
-                     SongsData.Add(x);
-                  });
-
-                  var saveData = JsonConvert.SerializeObject(SongsData.ToList());
-                  Preferences.Set("dataUpdated", saveData);
-
-                  DefineGreeting();
-                  MyPlaylist          = Playlist.PopularPlaylist();
-                  RecentlyPlayedTitle = "Recently played";
-                  TopMusicTitle       = "Top Music";
-                  FavoriteMusicList   = SongsData;
-               }
-               else
-               {
-                  DefineGreeting();
-                  MyPlaylist           = Playlist.PopularPlaylist();
-                  RecentlyPlayedTitle  = "Recently played";
-                  TopMusicTitle        = "Top Music";
-                  var dataRetrieved    = JsonConvert.DeserializeObject<List<Music>>(Preferences.Get("dataUpdated", null));                  
-                  var collection       = new ObservableCollection<Music>();
-                  dataRetrieved.ForEach( x => collection.Add(x) );
-                  FavoriteMusicList    = collection;                  
-               }               
+            {               
+               DefineGreeting();
+               MyPlaylist          = await MusicService.GetPlayLists();
+               FavoriteMusicList   = await MusicService.GetAllSongs();              
+               RecentlyPlayedTitle = "Recently played";
+               TopMusicTitle       = "Top Music";               
             }            
          }
          catch (Exception)

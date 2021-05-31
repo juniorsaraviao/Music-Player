@@ -1,9 +1,5 @@
-﻿using MusicPlayer.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MusicPlayer.Model;
+using MusicPlayer.ViewModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,10 +14,21 @@ namespace MusicPlayer.View
          InitializeComponent();
       }
 
-      protected override void OnAppearing()
+      protected async override void OnAppearing()
       {
          base.OnAppearing();
-         ((FavoritePageViewModel)BindingContext).GetFavoritePlaylist();
+         await ( (FavoritePageViewModel)BindingContext ).GetFavoritePlaylist();
+
+         MessagingCenter.Subscribe<MusicPageViewModel>(this, "Reload", async (sender) => {
+            await ( (FavoritePageViewModel)BindingContext ).GetFavoritePlaylist();
+         });
+
+      }
+
+      protected override void OnDisappearing()
+      {
+         base.OnDisappearing();
+         MessagingCenter.Unsubscribe<MusicPageViewModel>(this, "Reload");
       }
    }
 }

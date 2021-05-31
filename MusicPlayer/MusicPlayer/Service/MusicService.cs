@@ -12,13 +12,51 @@ namespace MusicPlayer.Service
    {
       private const string url = "https://musicstreamindemoapp.azurewebsites.net/api/Songs";
 
-      public static async Task<List<Music>> GetAllSongs(int pagNumber, int pageSize)
+      public static async Task<List<Music>> GetAllSongs()
       {
-         var httpClient = new HttpClient();
+         using ( var httpClient = new HttpClient() )
+         {
+            var songList = await httpClient.GetStringAsync("http://localhost:3000/songs");
 
-         var songList = await httpClient.GetStringAsync( string.Format($"{ url }?pageNumber={ pagNumber }&pageSize={ pageSize }"));
+            return JsonConvert.DeserializeObject<List<Music>>(songList);
+         }         
+      }
 
-         return JsonConvert.DeserializeObject<List<Music>>(songList);
+      public static async Task<List<Playlist>> GetPlayLists()
+      {
+         using ( var httpClient = new HttpClient() )
+         {
+            var songs = await httpClient.GetStringAsync("http://localhost:3000/playlist");
+
+            return JsonConvert.DeserializeObject<List<Playlist>>(songs);
+         }            
+      }
+
+      public static async Task<bool> UpdateSong(Music music)
+      {
+         using (var httpClient = new HttpClient())
+         {
+            var dictionary = new Dictionary<string, object>
+            {
+               { "isLike", music.IsLike },
+               { "songName", music.SongName },
+               { "songFileCover", music.SongFileCover },
+               { "songUrl", music.SongUrl },
+               { "songDuration", music.SongDuration },
+               { "singerName", music.SingerName }
+            };
+            var content = new StringContent(JsonConvert.SerializeObject(dictionary), Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage()
+            {
+               RequestUri = new Uri($"http://localhost:3000/songs/{music.Id}"),
+               Content    = content,
+               Method     = HttpMethod.Put,
+            };
+            
+            await httpClient.SendAsync(request);
+
+            return true;
+         }
       }
    }
 }
