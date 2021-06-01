@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fontAwesome="clr-namespace:MusicPlayer.Util"
+             xmlns:constant="clr-namespace:MusicPlayer.Constant"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="MusicPlayer.View.PlayPage">
@@ -12,10 +13,10 @@
                      VerticalOptions="FillAndExpand">
             <StackLayout.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="#2bb0ee"
-                          Offset="0.1" />
-                    <GradientStop Color="Black"
-                          Offset="1.0" />
+                    <GradientStop Color="{StaticResource GradientPlayPrimary}"
+                                  Offset="0.1" />
+                    <GradientStop Color="{StaticResource GradientColorSecondary}"
+                                  Offset="1.0" />
                 </LinearGradientBrush>
             </StackLayout.Background>
 
@@ -23,40 +24,58 @@
 
                 <ffimageloading:CachedImage Source="{Binding SelectedMusic.SongFileCover}"
                                             Aspect="AspectFill"
-                                            ErrorPlaceholder="compactdisc2.png" 
-                                            LoadingPlaceholder="compactdisc2.png" 
+                                            ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }" 
+                                            LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }" 
                                             HeightRequest="300" WidthRequest="300">
                 </ffimageloading:CachedImage>
                 
                 <StackLayout Margin="5">
-                    <Label Text="{Binding SelectedMusic.SongName}" TextColor="White" FontSize="Small" FontAttributes="Bold" />
-                    <Label Text="{Binding SelectedMusic.SingerName}" TextColor="White" FontSize="Small" />
+                    <Label Text="{Binding SelectedMusic.SongName}" 
+                           TextColor="{StaticResource TextPrimaryColor}" 
+                           FontSize="Small" 
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedMusic.SingerName}" 
+                           TextColor="{StaticResource TextPrimaryColor}" 
+                           FontSize="Small" />
                 </StackLayout>
 
-                <Slider x:Name="MySlider" MinimumTrackColor="White" MaximumTrackColor="Gray" ThumbColor="White"
-                ValueChanged="MySlider_ValueChanged"    Value="{Binding Position.TotalSeconds}" Maximum="{Binding Maximum}"/>
+                <Slider x:Name="MySlider" 
+                        MinimumTrackColor="{StaticResource TrackColor}" 
+                        MaximumTrackColor="{StaticResource TrackColorMin}" 
+                        ThumbColor="{StaticResource TrackColor}"
+                        ValueChanged="MySlider_ValueChanged"    
+                        Value="{Binding Position.TotalSeconds}" Maximum="{Binding Maximum}"/>
                 
                 <StackLayout Orientation="Horizontal" >
-                    <Label Text="{Binding InitialTime}" TextColor="White" HorizontalOptions="StartAndExpand"/>
-                    <Label Text="{Binding FinalTime}" TextColor="White" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding InitialTime}" 
+                           TextColor="{StaticResource TextPrimaryColor}" 
+                           HorizontalOptions="StartAndExpand"/>
+                    <Label Text="{Binding FinalTime}" 
+                           TextColor="{StaticResource TextPrimaryColor}" 
+                           HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
-                               HorizontalOptions="Start" VerticalOptions="CenterAndExpand"
-                               FontFamily="FAFree-Regular" Margin="3"
-                               TextColor="White" FontSize="20"/>
+                           HorizontalOptions="Start" 
+                           VerticalOptions="CenterAndExpand"
+                           FontFamily="FAFree-Regular" 
+                           Margin="3"
+                           TextColor="White" 
+                           FontSize="20"/>
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.BackwardButton}"
-                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-                               FontFamily="FAFree-Solid" Margin="3"
-                               TextColor="White" FontSize="30">
+                           HorizontalOptions="CenterAndExpand" 
+                           VerticalOptions="CenterAndExpand"
+                           FontFamily="FAFree-Solid" 
+                           Margin="3"
+                           TextColor="White" 
+                           FontSize="30">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackwardCommand}"/>
                         </Label.GestureRecognizers>
                     </Label>
 
-                    <Button 
-                            WidthRequest="60"
+                    <Button WidthRequest="60"
                             HeightRequest="60"
                             CornerRadius="30"
                             Text="{Binding PlayPauseImg}"
@@ -69,27 +88,35 @@
                             BackgroundColor="White"/>
 
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.ForwardButton}"
-                           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-                           FontFamily="FAFree-Solid" Margin="3"
-                           TextColor="White" FontSize="30">
+                           HorizontalOptions="CenterAndExpand" 
+                           VerticalOptions="CenterAndExpand"
+                           Style="{StaticResource FontAwesomeStyle}"
+                           Margin="3"
+                           FontSize="30">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ForwardCommand}"/>
                         </Label.GestureRecognizers>
                     </Label>
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Ban}"
-                               HorizontalOptions="End" VerticalOptions="CenterAndExpand"
-                               FontFamily="FAFree-Solid" Margin="3"
-                               TextColor="White" FontSize="20"/>
+                           HorizontalOptions="End" 
+                           VerticalOptions="CenterAndExpand"
+                           Margin="3"
+                           Style="{StaticResource FontAwesomeStyle}"
+                           FontSize="20"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.ComputerSpeaker}"
-                           HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"
-                           FontFamily="FAFree-Solid" Margin="3"
-                           TextColor="White" FontSize="12"/>
+                           HorizontalOptions="StartAndExpand" 
+                           VerticalOptions="CenterAndExpand"
+                           Style="{StaticResource FontAwesomeStyle}"
+                           Margin="3"
+                           FontSize="12"/>
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Playlist}"
-                           HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"
-                           FontFamily="FAFree-Solid" Margin="3"
-                           TextColor="White" FontSize="12"/>
+                           HorizontalOptions="EndAndExpand" 
+                           VerticalOptions="CenterAndExpand"
+                           Style="{StaticResource FontAwesomeStyle}"
+                           Margin="3"
+                           FontSize="12"/>
                 </StackLayout>
             </StackLayout>
 

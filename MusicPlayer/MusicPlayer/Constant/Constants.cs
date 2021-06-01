@@ -15,5 +15,7 @@ namespace MusicPlayer.Constant
       public const string RecentlyPlayedTitle   = "Recently played";
       public const string TopMusicTitle         = "Top Music";
       public const string EnjoyMusicTitle       = "Enjoy your music!";
+      public const string NoFavoriteSongs       = "There are no favorite songs yet!";
+      public const string DiscPlaceholder       = "compactdisc2";
    }
 }

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:fontAwesome="clr-namespace:MusicPlayer.Util" 
+             xmlns:constant="clr-namespace:MusicPlayer.Constant"
              xmlns:model="clr-namespace:MusicPlayer.Model" 
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -21,9 +22,9 @@
             <ScrollView.Background>
                 <RadialGradientBrush Center="0.0,0.0"
                                      Radius="0.5">
-                    <GradientStop Color="DarkGreen"
+                    <GradientStop Color="{StaticResource GradientColorPrimary}"
                                   Offset="0.1"/>
-                    <GradientStop Color="Black"
+                    <GradientStop Color="{StaticResource GradientColorSecondary}"
                                   Offset="1.0"/>
                 </RadialGradientBrush>
             </ScrollView.Background>
@@ -31,15 +32,13 @@
             <StackLayout Margin="10">                
                 <StackLayout Padding="5">
                     <Label Text="{x:Static fontAwesome:FontAwesomeIcon.Setting}"
-                           FontFamily="FAFree-Solid"
-                           TextColor="White"
+                           Style="{StaticResource FontAwesomeStyle}"
                            FontSize="20"
                            HorizontalTextAlignment="End"/>
                 </StackLayout>
                 
                 <Label Text="{Binding Greeting}"
-                       FontFamily="PatuaOne"
-                       TextColor="White"
+                       Style="{StaticResource TextStyle}"
                        FontSize="25"
                        HorizontalTextAlignment="Start"/>
 
@@ -58,12 +57,12 @@
                                       HeightRequest="55"
                                       Padding="5">
                                     <BoxView CornerRadius="5,5,5,5"
-                                             BackgroundColor="#3e4240"/>
+                                             BackgroundColor="{StaticResource BoxViewBackground}"/>
                                     <StackLayout Orientation="Horizontal">
                                         <forms:CachedImage Source="{Binding PlaylistUrl}"
                                                            BackgroundColor="Transparent"
-                                                           LoadingPlaceholder="compactdisc2"
-                                                           ErrorPlaceholder="compactdisc2"
+                                                           LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                                           ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
                                                            HeightRequest="55"
                                                            WidthRequest="55"
                                                            Aspect="AspectFit">
@@ -74,10 +73,9 @@
                                                     BottomLeftCornerSize="5"/>
                                             </forms:CachedImage.Transformations>
                                         </forms:CachedImage>
-                                        <Label TextColor="White"
-                                               HorizontalOptions="Center"
+                                        <Label HorizontalOptions="Center"
                                                VerticalOptions="Center"
-                                               FontFamily="PatuaOne"
+                                               Style="{StaticResource TextStyle}"
                                                HorizontalTextAlignment="Start"
                                                Text="{Binding PlaylistName}"
                                                FontSize="12"/>
@@ -89,8 +87,7 @@
                 </StackLayout>
 
                 <Label Text="{Binding RecentlyPlayedTitle}"
-                       FontFamily="PatuaOne"
-                       TextColor="White"
+                       Style="{StaticResource TextStyle}"
                        FontSize="25"
                        HorizontalTextAlignment="Start"/>
                 
@@ -112,16 +109,15 @@
                                         <forms:CachedImage 
                                             Source="{Binding PlaylistUrl}"
                                             BackgroundColor="Transparent"
-                                            LoadingPlaceholder="compactdisc2"
-                                            ErrorPlaceholder="compactdisc2"
+                                            LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                            ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
                                             HeightRequest="120"
                                             WidthRequest="120"
                                             Aspect="AspectFit">                                            
                                         </forms:CachedImage>
-                                        <Label TextColor="White"
+                                        <Label Style="{StaticResource TextStyle}"
                                                HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                               FontFamily="PatuaOne"
+                                               VerticalOptions="Center"                                               
                                                HorizontalTextAlignment="Start"
                                                Text="{Binding PlaylistName}"
                                                FontSize="12"/>
@@ -133,8 +129,7 @@
                 </StackLayout>
 
                 <Label Text="{Binding TopMusicTitle}"
-                       FontFamily="PatuaOne"
-                       TextColor="White"
+                       Style="{StaticResource TextStyle}"
                        FontSize="25"
                        HorizontalTextAlignment="Start"/>
 
@@ -159,8 +154,8 @@
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Orientation="Horizontal" Spacing="2" Grid.Column="0">
                                         <forms:CachedImage Source="{Binding SongFileCover}"
-                                                       ErrorPlaceholder="compactdisc2"
-                                                       LoadingPlaceholder="compactdisc2"
+                                                       ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                                       LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
                                                        HeightRequest="72" WidthRequest="72">
                                             <forms:CachedImage.Transformations>
                                                 <transformations:RoundedTransformation Radius="20"/>
@@ -177,10 +172,13 @@
                                             <StackLayout Orientation="Horizontal">
                                                 <StackLayout VerticalOptions="CenterAndExpand"
                                                              HorizontalOptions="FillAndExpand">
-                                                    <Label Text="{Binding SongName}" FontSize="15" 
-                                                           FontAttributes="Bold" TextColor="White"/>
-                                                    <Label Text="{Binding SingerName}" FontSize="13"
-                                                           TextColor="White"/>
+                                                    <Label Text="{Binding SongName}" 
+                                                           FontSize="15" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="{StaticResource TextPrimaryColor}"/>
+                                                    <Label Text="{Binding SingerName}" 
+                                                           FontSize="13"
+                                                           TextColor="{StaticResource TextPrimaryColor}"/>
                                                 </StackLayout>
                                                 <StackLayout VerticalOptions="CenterAndExpand"
                                                              HorizontalOptions="EndAndExpand">
@@ -188,7 +186,7 @@
                                                            VerticalTextAlignment="Center"
                                                            IsVisible="{Binding IsNotLike}"
                                                            FontSize="18"
-                                                           TextColor="#06bb7f"
+                                                           TextColor="{StaticResource TextSecondaryColor}"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
                                                            FontFamily="FAFree-Regular"/>
 
@@ -196,7 +194,7 @@
                                                            VerticalTextAlignment="Center"
                                                            IsVisible="{Binding IsLike}"
                                                            FontSize="18"
-                                                           TextColor="#06bb7f"
+                                                           TextColor="{StaticResource TextSecondaryColor}"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
                                                            FontFamily="FAFree-Solid">
                                                         <Label.GestureRecognizers>

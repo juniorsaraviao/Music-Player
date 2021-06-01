@@ -5,6 +5,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MusicPlayer.App">
-    <Application.Resources>        
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <Color x:Key="TextPrimaryColor">White</Color>
+            <Color x:Key="TextSecondaryColor">#06bb7f</Color>
+            <Color x:Key="GradientColorPrimary">DarkGreen</Color>
+            <Color x:Key="GradientPlayPrimary">#2bb0ee</Color>
+            <Color x:Key="GradientColorSecondary">Black</Color>
+            <Color x:Key="BoxViewBackground">#3e4240</Color>
+            <Color x:Key="TrackColor">White</Color>
+            <Color x:Key="TrackColorMin">Gray</Color>
+            
+            
+            <Style x:Key="FontAwesomeStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="FAFree-Solid" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            </Style>
+
+            <Style x:Key="TextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="PatuaOne" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            </Style>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

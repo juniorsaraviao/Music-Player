@@ -6,6 +6,7 @@
              xmlns:viewmodel="clr-namespace:MusicPlayer.ViewModel" 
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fontAwesome="clr-namespace:MusicPlayer.Util"
+             xmlns:constant="clr-namespace:MusicPlayer.Constant"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
              x:Name="ThisPage"
@@ -21,9 +22,9 @@
             <ScrollView.Background>
                 <RadialGradientBrush Center="0.0,0.0"
                                      Radius="0.5">
-                    <GradientStop Color="DarkGreen"
+                    <GradientStop Color="{StaticResource GradientColorPrimary}"
                                   Offset="0.1"/>
-                    <GradientStop Color="Black"
+                    <GradientStop Color="{StaticResource GradientColorSecondary}"
                                   Offset="1.0"/>
                 </RadialGradientBrush>
             </ScrollView.Background>
@@ -31,9 +32,9 @@
             <StackLayout Margin="10">
 
                 <Label Text="{Binding FavoriteMusicTitle}"
-                       FontFamily="PatuaOne"
-                       TextColor="White"
+                       Style="{StaticResource TextStyle}"
                        FontSize="25"
+                       IsVisible="{Binding IsVisibleList}"
                        HorizontalTextAlignment="Center"/>
 
                 <StackLayout>
@@ -46,7 +47,7 @@
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical"
-                                           ItemSpacing="15"/>
+                                               ItemSpacing="15"/>
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
@@ -58,8 +59,8 @@
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Orientation="Horizontal" Spacing="2" Grid.Column="0">
                                         <forms:CachedImage Source="{Binding SongFileCover}"
-                                                           ErrorPlaceholder="compactdisc2"
-                                                           LoadingPlaceholder="compactdisc2"
+                                                           ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                                           LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
                                                            HeightRequest="72" WidthRequest="72">
                                             <forms:CachedImage.Transformations>
                                                 <transformations:RoundedTransformation Radius="20"/>
@@ -78,17 +79,20 @@
                                                          HorizontalOptions="FillAndExpand"
                                                          Orientation="Horizontal">
                                                 <StackLayout>
-                                                    <Label Text="{Binding SongName}" FontSize="15" 
-                                                           FontAttributes="Bold" TextColor="White"/>
-                                                    <Label Text="{Binding SingerName}" FontSize="13"
-                                                           TextColor="White"/>
+                                                    <Label Text="{Binding SongName}" 
+                                                           FontSize="15" 
+                                                           FontAttributes="Bold" 
+                                                           TextColor="{StaticResource TextPrimaryColor}"/>
+                                                    <Label Text="{Binding SingerName}" 
+                                                           FontSize="13"
+                                                           TextColor="{StaticResource TextPrimaryColor}"/>
                                                 </StackLayout>
                                                 <StackLayout HorizontalOptions="EndAndExpand"
                                                              VerticalOptions="CenterAndExpand">
                                                     <Label HorizontalTextAlignment="End"
                                                            VerticalTextAlignment="Center"
                                                            FontSize="18"
-                                                           TextColor="#06bb7f"
+                                                           TextColor="{StaticResource TextSecondaryColor}"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Play}"
                                                            FontFamily="FAFree-Solid">
                                                         <Label.GestureRecognizers>
@@ -109,13 +113,13 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    
-                    <Label Text="There are no favorite songs yet!"
+
+                    <Label Text="{x:Static constant:Constants.NoFavoriteSongs }"
                            IsVisible="{Binding IsNotVisibleList}"
-                           FontFamily="PatuaOne"
-                           TextColor="White"
+                           Style="{StaticResource TextStyle}"
                            FontSize="25"
-                           HorizontalTextAlignment="Start"/>
+                           Margin="10"
+                           HorizontalTextAlignment="Center"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
