@@ -190,12 +190,8 @@
                                                            FontSize="18"
                                                            TextColor="#06bb7f"
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Heart}"
-                                                           FontFamily="FAFree-Regular">
-                                                        <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
-                                                                                  CommandParameter="{Binding .}"/>
-                                                        </Label.GestureRecognizers>
-                                                    </Label>
+                                                           FontFamily="FAFree-Regular"/>
+
                                                     <Label HorizontalTextAlignment="End"
                                                            VerticalTextAlignment="Center"
                                                            IsVisible="{Binding IsLike}"
@@ -207,8 +203,12 @@
                                                             <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
                                                                                   CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
-                                                    </Label>
+                                                    </Label>                                                   
                                                 </StackLayout>
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.LikeCommand}"
+                                                                          CommandParameter="{Binding .}"/>
+                                                </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>

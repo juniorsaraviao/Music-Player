@@ -100,7 +100,7 @@ namespace MusicPlayer.ViewModel
                
                FavoritePlaylist   = likeMusic;
                IsVisibleList      = true;
-               Height             = likeMusic.Count * 80;
+               Height             = likeMusic.Count * 90;
                FavoriteMusicTitle = Constants.EnjoyMusicTitle;
             }
             else

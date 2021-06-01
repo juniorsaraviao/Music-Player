@@ -8,11 +8,12 @@
              xmlns:fontAwesome="clr-namespace:MusicPlayer.Util"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
+             x:Name="ThisPage"
              NavigationPage.HasNavigationBar="False"
              x:Class="MusicPlayer.View.FavoritePage">
 
     <ContentPage.BindingContext>
-        <viewmodel:FavoritePageViewModel x:Name="Reference"/>
+        <viewmodel:FavoritePageViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
@@ -78,9 +79,9 @@
                                                          Orientation="Horizontal">
                                                 <StackLayout>
                                                     <Label Text="{Binding SongName}" FontSize="15" 
-                                                       FontAttributes="Bold" TextColor="White"/>
+                                                           FontAttributes="Bold" TextColor="White"/>
                                                     <Label Text="{Binding SingerName}" FontSize="13"
-                                                       TextColor="White"/>
+                                                           TextColor="White"/>
                                                 </StackLayout>
                                                 <StackLayout HorizontalOptions="EndAndExpand"
                                                              VerticalOptions="CenterAndExpand">
@@ -91,11 +92,16 @@
                                                            Text="{x:Static fontAwesome:FontAwesomeIcon.Play}"
                                                            FontFamily="FAFree-Solid">
                                                         <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Reference}, Path=PlayCommand}"
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.PlayCommand}"
                                                                                   CommandParameter="{Binding .}"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
                                                 </StackLayout>
+
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.PlayCommand}"
+                                                                          CommandParameter="{Binding .}"/>
+                                                </StackLayout.GestureRecognizers>
                                             </StackLayout>
                                         </Grid>
                                     </StackLayout>
