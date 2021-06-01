@@ -1,7 +1,9 @@
 ﻿using Acr.UserDialogs;
+using Autofac;
 using MusicPlayer.Constant;
 using MusicPlayer.Model;
 using MusicPlayer.Service;
+using MusicPlayer.Service.Interfaces;
 using MusicPlayer.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,11 +19,12 @@ namespace MusicPlayer.ViewModel
 
       #region Fields
 
-      private IList<Music> _favoritePlaylist;
-      private bool         _isVisibleList;
-      private string       _favoriteMusicTitle;
-      private int          _height;
-      public  bool IsNotVisibleList => !IsVisibleList;
+      private readonly IMusicService  _musicService;
+      private readonly IDialogService _dialogService;
+      private          IList<Music>   _favoritePlaylist;
+      private          bool           _isVisibleList;
+      private          string         _favoriteMusicTitle;
+      private          int            _height;      
 
       #endregion
 
@@ -65,6 +68,8 @@ namespace MusicPlayer.ViewModel
          }
       }
 
+      public bool IsNotVisibleList => !IsVisibleList;
+
       #endregion
 
       #region Command
@@ -75,8 +80,21 @@ namespace MusicPlayer.ViewModel
 
       #region Constructor
 
-      public FavoritePageViewModel()
+      public FavoritePageViewModel() : this( 
+         DIServiceContainer.Container.Resolve<IMusicService>(), 
+         DIServiceContainer.Container.Resolve<IDialogService>()
+      ) 
       {
+
+      }
+
+      public FavoritePageViewModel( 
+         IMusicService  musicService,
+         IDialogService dialogService
+      )
+      {
+         _musicService    = musicService;
+         _dialogService   = dialogService;
          FavoritePlaylist = new ObservableCollection<Music>();
       }
 
@@ -91,13 +109,13 @@ namespace MusicPlayer.ViewModel
       
       public async Task GetFavoritePlaylist()
       {
-         using (UserDialogs.Instance.Loading())
+         using ( _dialogService.Dialog() )
          {
-            var dataRetrieved = await MusicService.GetAllSongs();
+            var dataRetrieved = await _musicService.GetAllSongs();
             var likeMusic     = dataRetrieved.Where( x => x.IsLike ).ToList(); 
             if (likeMusic.Any())
             {
-               
+
                FavoritePlaylist   = likeMusic;
                IsVisibleList      = true;
                Height             = likeMusic.Count * 90;
@@ -107,7 +125,7 @@ namespace MusicPlayer.ViewModel
             {
                IsVisibleList = false;
             }
-            
+
          }            
       }
 

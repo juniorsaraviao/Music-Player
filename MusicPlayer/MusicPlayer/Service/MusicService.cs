@@ -1,4 +1,5 @@
 ﻿using MusicPlayer.Model;
+using MusicPlayer.Service.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace MusicPlayer.Service
 {
-   public class MusicService
-   {
-      private const string url = "https://musicstreamindemoapp.azurewebsites.net/api/Songs";
-
-      public static async Task<List<Music>> GetAllSongs()
+   public class MusicService : IMusicService
+   {     
+      public async Task<List<Music>> GetAllSongs()
       {
          using ( var httpClient = new HttpClient() )
          {
@@ -22,7 +21,7 @@ namespace MusicPlayer.Service
          }         
       }
 
-      public static async Task<List<Playlist>> GetPlayLists()
+      public async Task<List<Playlist>> GetPlayLists()
       {
          using ( var httpClient = new HttpClient() )
          {
@@ -32,7 +31,7 @@ namespace MusicPlayer.Service
          }            
       }
 
-      public static async Task<bool> UpdateSong(Music music)
+      public async Task<bool> UpdateSong(Music music)
       {
          using (var httpClient = new HttpClient())
          {

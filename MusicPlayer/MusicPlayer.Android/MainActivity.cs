@@ -24,6 +24,8 @@ namespace MusicPlayer.Droid
             CachedImageRenderer.Init(true);
             UserDialogs.Init(this);
             CrossMediaManager.Current.Init(this);
+           
+            DIServiceContainer.Container = DIConfiguration.Configure();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

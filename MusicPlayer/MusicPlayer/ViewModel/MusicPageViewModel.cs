@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
+using Autofac;
 using MusicPlayer.Constant;
-using MusicPlayer.Service;
+using MusicPlayer.Service.Interfaces;
 using MusicPlayer.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace MusicPlayer.Model
 
       #region Fields
 
-      private string          _greeting;
-      private IList<Playlist> _myPlaylist;
-      private IList<Music>    _favoriteMusicList;
-      private string          _recentlyPlayedTitle;
-      private string          _topMusicTitle;
+      private readonly IMusicService   _musicService;
+      private readonly IDialogService  _dialogService;
+      private          string          _greeting;
+      private          IList<Playlist> _myPlaylist;
+      private          IList<Music>    _favoriteMusicList;
+      private          string          _recentlyPlayedTitle;
+      private          string          _topMusicTitle;
 
       #endregion
 
@@ -81,8 +84,20 @@ namespace MusicPlayer.Model
 
       #region Constructor
 
-      public MusicPageViewModel()
+      public MusicPageViewModel() : this(
+         DIServiceContainer.Container.Resolve<IMusicService>(),
+         DIServiceContainer.Container.Resolve<IDialogService>()
+      )
       {
+      }
+
+      public MusicPageViewModel(
+         IMusicService  musicService,
+         IDialogService dialogService
+      )
+      {
+         _musicService  = musicService;
+         _dialogService = dialogService;
       }
 
       #endregion
@@ -107,21 +122,21 @@ namespace MusicPlayer.Model
 
       private async Task LikeMethod(Music selectedMusic)
       {
-         using (UserDialogs.Instance.Loading())
+         using ( _dialogService.Dialog() )
          {
             selectedMusic.IsLike  = !selectedMusic.IsLike;
-            var isUpdated         = await MusicService.UpdateSong(selectedMusic);
+            var isUpdated         = await _musicService.UpdateSong(selectedMusic);
 
             FavoriteMusicList.Clear();
-            FavoriteMusicList = await MusicService.GetAllSongs();
+            FavoriteMusicList = await _musicService.GetAllSongs();
 
             if (selectedMusic.IsLike && isUpdated)
             {
-               UserDialogs.Instance.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
+               _dialogService.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
             }
             else
             {
-               UserDialogs.Instance.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
+               _dialogService.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
             }
 
             MessagingCenter.Send(this, Constants.MessagingCenterReload);
@@ -135,8 +150,8 @@ namespace MusicPlayer.Model
             using (UserDialogs.Instance.Loading())
             {               
                DefineGreeting();
-               MyPlaylist          = await MusicService.GetPlayLists();
-               FavoriteMusicList   = await MusicService.GetAllSongs();              
+               MyPlaylist          = await _musicService.GetPlayLists();
+               FavoriteMusicList   = await _musicService.GetAllSongs();              
                RecentlyPlayedTitle = Constants.RecentlyPlayedTitle;
                TopMusicTitle       = Constants.TopMusicTitle;               
             }            
