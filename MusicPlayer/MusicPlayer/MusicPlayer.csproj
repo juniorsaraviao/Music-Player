@@ -41,6 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MusicPlayer.API\MusicPlayer.API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="View\FavoritePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
