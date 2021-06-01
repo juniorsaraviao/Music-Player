@@ -7,7 +7,7 @@
   </item>
 
   <item>
-    <bitmap android:src="@mipmap/player"
+    <bitmap android:src="@drawable/logo"
        android:tileMode="disabled"
        android:gravity="center"/>
   </item>

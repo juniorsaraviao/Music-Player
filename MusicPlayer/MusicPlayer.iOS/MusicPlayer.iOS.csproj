@@ -151,4 +151,25 @@
       <Name>MusicPlayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_headset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\compactdisc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\compactdisc2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\font.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\musiclp.png" />
+  </ItemGroup>
 </Project>
