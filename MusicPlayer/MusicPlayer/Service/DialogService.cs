@@ -15,5 +15,10 @@ namespace MusicPlayer.Service
       {
          return UserDialogs.Instance.Toast(message, dismissTimer);
       }
+
+      public IDisposable Alert(string message, string title, string okText)
+      {
+         return UserDialogs.Instance.Alert(message, title, okText);
+      }
    }
 }

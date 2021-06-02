@@ -7,5 +7,6 @@ namespace MusicPlayer.Service.Interfaces
    {
       IProgressDialog Dialog();
       IDisposable Toast(string message, TimeSpan dismissTimer);
+      IDisposable Alert(string message, string title, string okText);
    }
 }

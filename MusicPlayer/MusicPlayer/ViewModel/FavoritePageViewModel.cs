@@ -1,10 +1,9 @@
-﻿using Acr.UserDialogs;
-using Autofac;
+﻿using Autofac;
 using MusicPlayer.Constant;
 using MusicPlayer.Model;
-using MusicPlayer.Service;
 using MusicPlayer.Service.Interfaces;
 using MusicPlayer.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -70,6 +69,8 @@ namespace MusicPlayer.ViewModel
 
       public bool IsNotVisibleList => !IsVisibleList;
 
+      public string ErrorMessage { get; set; }
+
       #endregion
 
       #region Command
@@ -109,24 +110,33 @@ namespace MusicPlayer.ViewModel
       
       public async Task GetFavoritePlaylist()
       {
-         using ( _dialogService.Dialog() )
+         try
          {
-            var dataRetrieved = await _musicService.GetAllSongs();
-            var likeMusic     = dataRetrieved.Where( x => x.IsLike ).ToList(); 
-            if (likeMusic.Any())
+            using ( _dialogService.Dialog() )
             {
+               var dataRetrieved = await _musicService.GetAllSongs();
+               var likeMusic     = dataRetrieved.Where( x => x.IsLike ).ToList(); 
+               if (likeMusic.Any())
+               {
 
-               FavoritePlaylist   = likeMusic;
-               IsVisibleList      = true;
-               Height             = likeMusic.Count * 90;
-               FavoriteMusicTitle = Constants.EnjoyMusicTitle;
-            }
-            else
-            {
-               IsVisibleList = false;
-            }
+                  FavoritePlaylist   = likeMusic;
+                  IsVisibleList      = true;
+                  Height             = likeMusic.Count * 90;
+                  FavoriteMusicTitle = Constants.EnjoyMusicTitle;
+               }
+               else
+               {
+                  IsVisibleList = false;
+               }
 
-         }            
+            }
+         }
+         catch (Exception ex)
+         {
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.GetFavoriteMusicError, Constants.GetFavoriteMusicTitle, Constants.OkText);
+         }
+                     
       }
 
       #endregion

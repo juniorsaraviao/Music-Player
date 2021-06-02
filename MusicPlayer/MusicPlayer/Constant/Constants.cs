@@ -17,5 +17,12 @@ namespace MusicPlayer.Constant
       public const string EnjoyMusicTitle       = "Enjoy your music!";
       public const string NoFavoriteSongs       = "There are no favorite songs yet!";
       public const string DiscPlaceholder       = "compactdisc2";
+      public const string LikeErrorMessage      = "Like Failed";
+      public const string LikeErrorTitle        = "Try Again!";
+      public const string OkText                = "Ok";
+      public const string GetSongError          = "Error retriving songs";
+      public const string GetSongTitle          = "Try later";
+      public const string GetFavoriteMusicError = "Cannot load favorite music";
+      public const string GetFavoriteMusicTitle = "Favorite music failed!";
    }
 }

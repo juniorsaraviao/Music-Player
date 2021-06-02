@@ -74,6 +74,10 @@ namespace MusicPlayer.Model
          }
       }
 
+      public string ErrorMessage  { get; set; }
+      public bool   IsUpdated     { get; set; }
+      public DateTime CurrentDate { get; set; }
+
       #endregion
 
       #region Commands
@@ -96,21 +100,23 @@ namespace MusicPlayer.Model
          IDialogService dialogService
       )
       {
-         _musicService  = musicService;
-         _dialogService = dialogService;
+         _musicService     = musicService;
+         _dialogService    = dialogService;
+         FavoriteMusicList = new List<Music>();
+         CurrentDate       = DateTime.Now;
       }
 
       #endregion
 
       #region Methods
 
-      private void DefineGreeting()
+      public void DefineGreeting()
       {
-         if( DateTime.Now.Hour >= 6 && DateTime.Now.Hour < 12 )
+         if( CurrentDate.Hour >= 6 && CurrentDate.Hour < 12 )
          {
             Greeting = Constants.GoodMorning;
          }
-         else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18 )
+         else if ( CurrentDate.Hour >= 12 && CurrentDate.Hour < 18 )
          {
             Greeting = Constants.GoodAfternoon;
          }
@@ -120,34 +126,45 @@ namespace MusicPlayer.Model
          }
       }      
 
-      private async Task LikeMethod(Music selectedMusic)
+      public async Task LikeMethod(Music selectedMusic)
       {
-         using ( _dialogService.Dialog() )
+         try
          {
-            selectedMusic.IsLike  = !selectedMusic.IsLike;
-            var isUpdated         = await _musicService.UpdateSong(selectedMusic);
-
-            FavoriteMusicList.Clear();
-            FavoriteMusicList = await _musicService.GetAllSongs();
-
-            if (selectedMusic.IsLike && isUpdated)
+            using ( _dialogService.Dialog() )
             {
-               _dialogService.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
-            }
-            else
-            {
-               _dialogService.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
-            }
+               selectedMusic.IsLike  = !selectedMusic.IsLike;
+               var isUpdated         = await _musicService.UpdateSong(selectedMusic);
 
-            MessagingCenter.Send(this, Constants.MessagingCenterReload);
-         }                  
+               FavoriteMusicList.Clear();
+               FavoriteMusicList = await _musicService.GetAllSongs();
+
+               if (selectedMusic.IsLike && isUpdated)
+               {
+                  IsUpdated = true;
+                  _dialogService.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
+               }
+               else
+               {
+                  IsUpdated = false;
+                  _dialogService.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
+               }
+
+               MessagingCenter.Send(this, Constants.MessagingCenterReload);
+            }
+         }
+         catch (Exception ex)
+         {
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.LikeErrorMessage, Constants.LikeErrorTitle, Constants.OkText);
+         }
+                           
       }
 
       public async Task GetSongs()
       {
          try
          {
-            using (UserDialogs.Instance.Loading())
+            using ( _dialogService.Dialog() )
             {               
                DefineGreeting();
                MyPlaylist          = await _musicService.GetPlayLists();
@@ -156,9 +173,10 @@ namespace MusicPlayer.Model
                TopMusicTitle       = Constants.TopMusicTitle;               
             }            
          }
-         catch (Exception)
+         catch (Exception ex)
          {
-            throw;
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.GetSongError, Constants.GetSongTitle, Constants.OkText);
          }
       }
 
