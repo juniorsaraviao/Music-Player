@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="MusicPlayer.View.ArtistView"
+             xmlns:constant="clr-namespace:MusicPlayer.Constant"
+             ControlTemplate="{DynamicResource ArtistTemplate}">
+  <ContentView.Resources>
+      <ResourceDictionary>
+          <ControlTemplate x:Key="ArtistTemplate">
+              <Grid Margin="10">
+                                    
+                  <Frame HasShadow="True"
+                         BackgroundColor="White"
+                         CornerRadius="8"
+                         WidthRequest="320"
+                         Padding="0">
+                      
+                      <Grid RowDefinitions="100, Auto">
+                          <StackLayout Padding="16"
+                                       Spacing="0">
+                              <StackLayout.Background>
+                                  <LinearGradientBrush>
+                                      <GradientStop Color="#8A2387"
+                                                    Offset="0.1"/>
+                                      <GradientStop Color="#E94057"
+                                                    Offset="0.6"/>
+                                      <GradientStop Color="#F27121"
+                                                    Offset="1.0"/>
+                                  </LinearGradientBrush>
+                              </StackLayout.Background>
+                              <Label Text="{TemplateBinding Path=ArtistBinding.ArtistName}"
+                                     FontSize="20"
+                                     FontAttributes="Bold"
+                                     TextColor="White"/>
+                          </StackLayout>
+                          <StackLayout Grid.Row="1"
+                                       Padding="16, 8, 16, 12">
+                              <Label Text="{TemplateBinding Path=ArtistBinding.MusicalGenre, StringFormat='Genre: {0}'}"
+                                     FontAttributes="Bold"/>
+                              <Label Text="{TemplateBinding Path=ArtistBinding.Followers, StringFormat='Followers: {0:0,0}'}"
+                                     FontAttributes="Bold"/>
+                          </StackLayout>
+                      </Grid>                
+                  </Frame>
+                  
+                  <Frame HeightRequest="90"
+                         WidthRequest="90"
+                         CornerRadius="45"
+                         Margin="0,60,16,16"
+                         HorizontalOptions="End"
+                         VerticalOptions="Start"
+                         BackgroundColor="Transparent"
+                         BorderColor="White"
+                         HasShadow="False"
+                         Padding="0">
+
+                        <forms:CachedImage Source="{TemplateBinding Path=ArtistBinding.ImageUrl}"
+                                                           BackgroundColor="Transparent"
+                                                           LoadingPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                                           ErrorPlaceholder="{x:Static constant:Constants.DiscPlaceholder }"
+                                                           HeightRequest="80"
+                                                           WidthRequest="80"
+                                                           Aspect="AspectFit">
+                            <forms:CachedImage.Transformations>
+                                <transformations:CircleTransformation/>
+                            </forms:CachedImage.Transformations>
+                        </forms:CachedImage>
+                    </Frame>
+          
+              </Grid>
+          </ControlTemplate>
+      
+      </ResourceDictionary>
+  </ContentView.Resources>
+</ContentView>

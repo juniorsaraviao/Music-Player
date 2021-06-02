@@ -36,6 +36,20 @@ namespace MusicPlayer.API
          }
       }
 
+      public async Task<string> GetArtist()
+      {
+         using (var httpClient = new HttpClient())
+         {
+            var request = new HttpRequestMessage()
+            {
+               RequestUri = new Uri($"{APIConstants.BaseUrl}/artists"),
+               Method     = HttpMethod.Get,
+            };
+            var response = await httpClient.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+         }
+      }
+
       public async Task<bool> UpdateSong(string parameters, int id)
       {
          using (var httpClient = new HttpClient())

@@ -8,6 +8,7 @@ namespace MusicPlayer.Service.Interfaces
    {
       Task<List<Music>> GetAllSongs();
       Task<List<Playlist>> GetPlayLists();
+      Task<List<Artist>> GetArtist();
       Task<bool> UpdateSong(Music music);
    }
 }

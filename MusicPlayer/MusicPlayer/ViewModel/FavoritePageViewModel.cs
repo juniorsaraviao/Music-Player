@@ -5,7 +5,6 @@ using MusicPlayer.Service.Interfaces;
 using MusicPlayer.View;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -96,7 +95,7 @@ namespace MusicPlayer.ViewModel
       {
          _musicService    = musicService;
          _dialogService   = dialogService;
-         FavoritePlaylist = new ObservableCollection<Music>();
+         FavoritePlaylist = new List<Music>();
       }
 
       #endregion
@@ -118,10 +117,8 @@ namespace MusicPlayer.ViewModel
                var likeMusic     = dataRetrieved.Where( x => x.IsLike ).ToList(); 
                if (likeMusic.Any())
                {
-
                   FavoritePlaylist   = likeMusic;
                   IsVisibleList      = true;
-                  Height             = likeMusic.Count * 90;
                   FavoriteMusicTitle = Constants.EnjoyMusicTitle;
                }
                else
