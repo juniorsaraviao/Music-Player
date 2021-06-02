@@ -9,6 +9,8 @@ Music Player App project developed using Xamarin Forms and the following:
 - [Plugin.MediaManager](https://github.com/Baseflow/XamarinMediaManager)  
 - [Newtonsoft.Json](https://www.newtonsoft.com/json)  
 - [PatuaOne Font](https://fonts.google.com/specimen/Patua+One)  
+- [Moq](https://github.com/Moq/moq4/wiki/Quickstart)  
+- [Local Db-json server](https://www.npmjs.com/package/json-server)  
 - Splash Activity  
 - Android Asset Studio  
 - MVVM Pattern  
@@ -27,4 +29,23 @@ Music Player App project developed using Xamarin Forms and the following:
     <td><img src="resources/Music2.jpg" width=240 height=480></td>
     <td><img src="resources/Music3.jpg" width=240 height=480></td>
   </tr>
- </table>
+ </table>  
+
+## SETUP DB-JSON SERVER AND TEST ON MOBILE PHONES   
+1. Install json-server following this [link](https://www.npmjs.com/package/json-server).  
+2. Locate the file db.json on the **resources** folder.  
+3. Open cmd, move to the db.json route and run this command `json-server --watch db.json` (the dafault port is 3000).
+4. Open a new tab on Google Chrome `chrome://inspect/#devices` and connect your mobile phone.  
+
+![Gif](https://raw.githubusercontent.com/juniorsaraviao/Music-Player/master/resources/localhostMobile2.png)  
+5. Click on Port forwading.  
+6. Add a new port, for this case 3000 - localhost:3000.  
+7. Check **Enable port forwarding**.  
+8. Click on Done.  
+
+![Gif](https://raw.githubusercontent.com/juniorsaraviao/Music-Player/master/resources/localhostMobile1.png)  
+9. Verify localhost on your mobile phone.  
+
+![Gif](https://raw.githubusercontent.com/juniorsaraviao/Music-Player/master/resources/localhostMobile3.jpg)  
+10. Have fun with **MusicPlayer App** :call_me_hand: :musical_note: :headphones: 
+    
