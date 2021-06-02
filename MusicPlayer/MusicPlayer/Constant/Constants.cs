@@ -20,9 +20,11 @@ namespace MusicPlayer.Constant
       public const string LikeErrorMessage      = "Like Failed";
       public const string LikeErrorTitle        = "Try Again!";
       public const string OkText                = "Ok";
-      public const string GetSongError          = "Error retriving songs";
+      public const string GetSongError          = "Error retrieving songs";
       public const string GetSongTitle          = "Try later";
       public const string GetFavoriteMusicError = "Cannot load favorite music";
       public const string GetFavoriteMusicTitle = "Favorite music failed!";
+      public const string LoadingArtistsError   = "Error retrieving artists!";
+      public const string LoadingArtistTitle    = "Try later";
    }
 }

@@ -34,6 +34,12 @@ namespace MusicPlayer.Service
          return JsonConvert.DeserializeObject<List<Playlist>>(playList);
       }
 
+      public async Task<List<Artist>> GetArtist()
+      {
+         var playList = await _apiService.GetArtist();         
+         return JsonConvert.DeserializeObject<List<Artist>>(playList);
+      }
+
       public async Task<bool> UpdateSong(Music music)
       {
          var dictionary = new Dictionary<string, object>

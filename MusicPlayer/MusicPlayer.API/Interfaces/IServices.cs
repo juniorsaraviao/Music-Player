@@ -6,6 +6,7 @@ namespace MusicPlayer.API.Interfaces
    {
       Task<string> GetAllSong();
       Task<string> GetPlayLists();
+      Task<string> GetArtist();
       Task<bool>   UpdateSong(string parameters, int id);
    }
 }

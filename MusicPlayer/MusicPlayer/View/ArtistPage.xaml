@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodel="clr-namespace:MusicPlayer.ViewModel" 
+             xmlns:view="clr-namespace:MusicPlayer.View"
+             x:Class="MusicPlayer.View.ArtistPage"
+             NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.BindingContext>
+        <viewmodel:ArtistPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout.Background>
+                <RadialGradientBrush Center="0.0,0.0"
+                                     Radius="0.5">
+                    <GradientStop Color="{StaticResource GradientColorPrimary}"
+                                  Offset="0.1"/>
+                    <GradientStop Color="{StaticResource GradientColorSecondary}"
+                                  Offset="1.0"/>
+                </RadialGradientBrush>
+            </StackLayout.Background>
+            
+            <Label Text="Search your favorite artists!"
+                   TextColor="White"
+                   FontSize="Medium"
+                   VerticalOptions="StartAndExpand" 
+                   HorizontalOptions="CenterAndExpand" />
+
+            <ScrollView>
+                <CollectionView ItemsSource="{Binding ArtistList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <view:ArtistView ArtistBinding="{Binding ., Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

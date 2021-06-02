@@ -7,7 +7,8 @@
              xmlns:constant="clr-namespace:MusicPlayer.Constant"
              xmlns:model="clr-namespace:MusicPlayer.Model" 
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
-             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+             xmlns:converters="clr-namespace:MusicPlayer.Converters"
              mc:Ignorable="d"
              x:Name="ThisPage"
              NavigationPage.HasNavigationBar="False"
@@ -16,7 +17,13 @@
     <ContentPage.BindingContext>
         <model:MusicPageViewModel x:Name="Reference"/>
     </ContentPage.BindingContext>
-    
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ListToHeightConverter x:Key="HeightConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <ScrollView>
             <ScrollView.Background>
@@ -138,7 +145,9 @@
                                     VerticalOptions="FillAndExpand"
                                     HorizontalOptions="FillAndExpand"
                                     Margin="5"
-                                    HeightRequest="780">
+                                    HeightRequest="{Binding FavoriteMusicList, 
+                                                    Converter={StaticResource HeightConverter}, 
+                                                    ConverterParameter='87'}">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical"

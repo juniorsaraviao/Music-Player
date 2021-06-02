@@ -20,6 +20,11 @@
                 <view:MusicPage />
             </x:Arguments>
         </NavigationPage>
+        <NavigationPage Title="Artist" IconImageSource="baseline_headset.png">
+            <x:Arguments>
+                <view:ArtistPage />
+            </x:Arguments>
+        </NavigationPage>
         <NavigationPage Title="Favorite" IconImageSource="baseline_headset.png">
             <x:Arguments>
                 <view:FavoritePage />

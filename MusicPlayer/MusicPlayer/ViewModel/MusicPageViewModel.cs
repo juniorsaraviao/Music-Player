@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using Autofac;
+﻿using Autofac;
 using MusicPlayer.Constant;
 using MusicPlayer.Service.Interfaces;
 using MusicPlayer.ViewModel;
