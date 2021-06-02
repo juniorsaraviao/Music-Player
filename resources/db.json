@@ -1,0 +1,111 @@
+{
+  "songs": [
+    {
+      "isLike": true,
+      "songName": "Poison",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/AliceCooper.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Alice Cooper - Poison (Official Video).mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Alice Cooper",
+      "id": 4
+    },
+    {
+      "isLike": false,
+      "songName": "Mojca Mojca",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/BigFootMama.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Big Foot Mama - Mojca, Mojca.mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Big Foot Mama",
+      "id": 5
+    },
+    {
+      "isLike": true,
+      "songName": "Hit The Road Jack",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/RayCharles.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Hit the road Jack!.mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Ray Charles",
+      "id": 6
+    },
+    {
+      "isLike": true,
+      "songName": "Candy",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/Iggypop.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Iggy Pop - Candy.mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Iggy Pop",
+      "id": 7
+    },
+    {
+      "isLike": false,
+      "songName": "Final Countdown",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/Laibach.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Laibach - Final Countdown.mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Laibach",
+      "id": 8
+    },
+    {
+      "isLike": false,
+      "songName": "Beds Are Burning",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/MidnightOil.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Midnight Oil - Beds Are Burning.mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Midnight Oil",
+      "id": 9
+    },
+    {
+      "id": 10,
+      "songName": "Adijo Ljubljana",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/pankrti.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Pankrti - Adijo Ljubljana.mp3",
+      "songDuration": "5 minutes",
+      "SingerName": "Pankrti",
+      "isLike": false
+    },
+    {
+      "isLike": false,
+      "songName": "I Want To Break Free",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/Queen.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Queen - I Want To Break Free (High Quality).mp3",
+      "songDuration": "5 minutes",
+      "singerName": "Queen",
+      "id": 11
+    },
+    {
+      "id": 12,
+      "songName": "More",
+      "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/SistersOfMercy.jpg",
+      "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/SISTERS OF MERCY - More ( 1990 ).mp3",
+      "songDuration": "5 minutes",
+      "singerName": "SISTERS OF MERCY",
+      "isLike": false
+    }
+  ],
+  "playlist": [
+    {
+      "playlistname": "Relax & Unwind",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/relax-unwind.jpg"
+    },
+    {
+      "playlistname": "Have a Great Day!",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/have-a-great-day.jpg"
+    },
+    {
+      "playlistname": "Your Favorite CoffeeHouse",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/coffee-house.jpg"
+    },
+    {
+      "playlistname": "Wake Up Happy",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/wake-up-happy.jpg"
+    },
+    {
+      "playlistname": "Totally Stress Free",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/totally-stress-free.jpg"
+    },
+    {
+      "playlistname": "Acoustic Love",
+      "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/acoustic-love.jpg"
+    }
+  ]
+}
