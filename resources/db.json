@@ -1,7 +1,7 @@
 {
   "songs": [
     {
-      "isLike": true,
+      "isLike": false,
       "songName": "Poison",
       "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/AliceCooper.jpg",
       "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Alice Cooper - Poison (Official Video).mp3",
@@ -46,7 +46,7 @@
       "id": 8
     },
     {
-      "isLike": false,
+      "isLike": true,
       "songName": "Beds Are Burning",
       "songFileCover": "https://androstorageaccaunt.blob.core.windows.net/images/MidnightOil.jpg",
       "songUrl": "https://androstorageaccaunt.blob.core.windows.net/songs/Midnight Oil - Beds Are Burning.mp3",
@@ -106,6 +106,78 @@
     {
       "playlistname": "Acoustic Love",
       "playlisturl": "https://www.noteburner.com/images-new/guide/top-10-spotify-playlist/acoustic-love.jpg"
+    }
+  ],
+  "artists": [
+    {
+      "id": 1,
+      "artistName": "Calvin Harris",
+      "followers": 123564,
+      "musicalGenre": "Electro",
+      "imageUrl": "https://pxb.cdn.ciudadanodiario.com.ar/ciudadano/042021/1618267625849/calvin-harris-uk-government-blast.jpeg"
+    },
+    {
+      "id": 2,
+      "artistName": "David Guetta",
+      "followers": 123564,
+      "musicalGenre": "Electro",
+      "imageUrl": "https://static.wikia.nocookie.net/edm/images/1/18/David_Guetta.jpg/revision/latest?cb=20140930041624&path-prefix=es"
+    },
+    {
+      "id": 3,
+      "artistName": "Soda Stereo",
+      "followers": 123564,
+      "musicalGenre": "Rock en español",
+      "imageUrl": "https://silencio.com.ar/wp-content/uploads/2020/08/SodaStereo-CancionAnimal-AlfredoLois-2000.jpg"
+    },
+    {
+      "id": 4,
+      "artistName": "Andrés Calamaro",
+      "followers": 123564,
+      "musicalGenre": "Rock",
+      "imageUrl": "https://www.rockandpop.cl/wp-content/uploads/2019/08/andres-calamaro-2.jpg"
+    },
+    {
+      "id": 5,
+      "artistName": "Avicii",
+      "followers": 123564,
+      "musicalGenre": "Electro",
+      "imageUrl": "https://www.tuenlinea.com/wp-content/uploads/2018/08/La-familia-de-Avicii-rompe-el-silencio-sobre-la-muerte-del-DJ.jpg"
+    },
+    {
+      "id": 6,
+      "artistName": "Rihanna",
+      "followers": 123564,
+      "musicalGenre": "Pop",
+      "imageUrl": "https://www.tonica.la/__export/1599926494438/sites/debate/img/2020/09/12/rihanna-dice-que-valdra-la-pena-la-espera-para-su-nuevo-xlbum.jpg_423682103.jpg"
+    },
+    {
+      "id": 7,
+      "artistName": "Sia",
+      "followers": 123564,
+      "musicalGenre": "Pop",
+      "imageUrl": "https://yt3.ggpht.com/ytc/AAUvwnjmmKEzisYEoxtAW-ee1PYMhaH6cQgXf9o1r0zfvg=s900-c-k-c0x00ffffff-no-rj"
+    },
+    {
+      "id": 8,
+      "artistName": "J Balvin",
+      "followers": 123564,
+      "musicalGenre": "Reggaeton",
+      "imageUrl": "https://estaticos-cdn.elperiodico.com/clip/df5ef5bd-72af-4ba2-a38b-7f7e108bddf7_alta-libre-aspect-ratio_default_0.jpg"
+    },
+    {
+      "id": 9,
+      "artistName": "Ed Sheeran",
+      "followers": 123564,
+      "musicalGenre": "Pop",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Ed_Sheeran-6826_%28cropped%29.jpg/1200px-Ed_Sheeran-6826_%28cropped%29.jpg"
+    },
+    {
+      "id": 10,
+      "artistName": "Marshmello",
+      "followers": 123564,
+      "musicalGenre": "Electro",
+      "imageUrl": "https://majomontemayor.com/wp-content/uploads/2018/11/Marshmello_Forbes.jpg"
     }
   ]
 }
