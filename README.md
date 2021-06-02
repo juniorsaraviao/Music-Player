@@ -26,10 +26,10 @@ Music Player App project developed using Xamarin Forms and the following:
      <td>Player Page</td>
   </tr>
   <tr>
-    <td><img src="resources/Music1.jpg" width=240 height=480></td>
-    <td><img src="resources/Music4.jpg" width=240 height=480></td>
-    <td><img src="resources/Music2.jpg" width=240 height=480></td>
-    <td><img src="resources/Music3.jpg" width=240 height=480></td>
+    <td><img src="resources/Music1.jpg" width=200 height=400></td>
+    <td><img src="resources/Music4.jpg" width=200 height=400></td>
+    <td><img src="resources/Music2.jpg" width=200 height=400></td>
+    <td><img src="resources/Music3.jpg" width=200 height=400></td>
   </tr>
  </table>  
 
