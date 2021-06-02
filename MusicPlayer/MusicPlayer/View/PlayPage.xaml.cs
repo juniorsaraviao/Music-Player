@@ -2,10 +2,6 @@
 using MusicPlayer.Model;
 using MusicPlayer.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,17 +11,18 @@ namespace MusicPlayer.View
    [XamlCompilation(XamlCompilationOptions.Compile)]
    public partial class PlayPage : ContentPage
    {
-      public PlayPageViewModel viewModel;
+      public readonly PlayPageViewModel _viewModel;
       public PlayPage( Music music)
       {
          InitializeComponent();
-         BindingContext = viewModel = new PlayPageViewModel( music );
+         _viewModel = new PlayPageViewModel( music );
       }
 
       protected async override void OnAppearing()
       {
-         base.OnAppearing();         
-         await ((PlayPageViewModel)BindingContext).PlayMusic();
+         base.OnAppearing();
+         BindingContext = _viewModel;
+         await _viewModel.PlayMusic();
       }
 
       private void MySlider_ValueChanged(object sender, ValueChangedEventArgs e)

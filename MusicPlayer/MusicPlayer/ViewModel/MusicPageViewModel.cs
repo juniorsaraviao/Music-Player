@@ -1,25 +1,32 @@
 ﻿using Acr.UserDialogs;
-using MusicPlayer.Service;
+using Autofac;
+using MusicPlayer.Constant;
+using MusicPlayer.Service.Interfaces;
 using MusicPlayer.ViewModel;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MusicPlayer.Model
 {
    public class MusicPageViewModel : BaseViewModel
    {
-      private string                         _greeting;
-      private ObservableCollection<Playlist> _myPlaylist;
-      private ObservableCollection<Music>    _favoriteMusicList;
-      private string                         _recentlyPlayedTitle;
-      private string                         _topMusicTitle;
+
+      #region Fields
+
+      private readonly IMusicService   _musicService;
+      private readonly IDialogService  _dialogService;
+      private          string          _greeting;
+      private          IList<Playlist> _myPlaylist;
+      private          IList<Music>    _favoriteMusicList;
+      private          string          _recentlyPlayedTitle;
+      private          string          _topMusicTitle;
+
+      #endregion
+
+      #region Properties
 
       public string RecentlyPlayedTitle
       {
@@ -39,7 +46,7 @@ namespace MusicPlayer.Model
             OnPropertyChanged();
          }
       }
-      public ObservableCollection<Playlist> MyPlaylist
+      public IList<Playlist> MyPlaylist
       {
          get => _myPlaylist;
          set 
@@ -48,7 +55,7 @@ namespace MusicPlayer.Model
             OnPropertyChanged();
          }
       }
-      public ObservableCollection<Music> FavoriteMusicList
+      public IList<Music> FavoriteMusicList
       {
          get => _favoriteMusicList;
          set
@@ -67,87 +74,113 @@ namespace MusicPlayer.Model
          }
       }
 
-      private void DefineGreeting()
+      public string ErrorMessage  { get; set; }
+      public bool   IsUpdated     { get; set; }
+      public DateTime CurrentDate { get; set; }
+
+      #endregion
+
+      #region Commands
+
+      public ICommand LikeCommand => new Command<Music>(async (music) => await LikeMethod(music));
+
+      #endregion
+
+      #region Constructor
+
+      public MusicPageViewModel() : this(
+         DIServiceContainer.Container.Resolve<IMusicService>(),
+         DIServiceContainer.Container.Resolve<IDialogService>()
+      )
       {
-         if( DateTime.Now.Hour >= 6 && DateTime.Now.Hour < 12 )
-         {
-            Greeting = "Good morning";
-         }
-         else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 18 )
-         {
-            Greeting = "Good afternoon";
-         }
-         else
-         {
-            Greeting = "Good evening";
-         }
       }
 
-      public ICommand LikeCommand => new Command<Music>( LikeMethod );
-
-      private void LikeMethod(Music selectedMusic)
+      public MusicPageViewModel(
+         IMusicService  musicService,
+         IDialogService dialogService
+      )
       {
-         var index = FavoriteMusicList.IndexOf(selectedMusic);
-         selectedMusic.IsLike     = !selectedMusic.IsLike;
-         FavoriteMusicList[index] = selectedMusic;
-         var saveData             = JsonConvert.SerializeObject(FavoriteMusicList);
-         Preferences.Set("dataUpdated", saveData);
-         if ( selectedMusic.IsLike )
+         _musicService     = musicService;
+         _dialogService    = dialogService;
+         FavoriteMusicList = new List<Music>();
+         CurrentDate       = DateTime.Now;
+      }
+
+      #endregion
+
+      #region Methods
+
+      public void DefineGreeting()
+      {
+         if( CurrentDate.Hour >= 6 && CurrentDate.Hour < 12 )
          {
-            UserDialogs.Instance.Toast("Include in Favorite Music", new TimeSpan(500));
-            MessagingCenter.Send(this, "Reload");
+            Greeting = Constants.GoodMorning;
+         }
+         else if ( CurrentDate.Hour >= 12 && CurrentDate.Hour < 18 )
+         {
+            Greeting = Constants.GoodAfternoon;
          }
          else
          {
-            UserDialogs.Instance.Toast("Remove from Favorite Music", new TimeSpan(500));
-         }         
+            Greeting = Constants.GoodEvening;
+         }
+      }      
+
+      public async Task LikeMethod(Music selectedMusic)
+      {
+         try
+         {
+            using ( _dialogService.Dialog() )
+            {
+               selectedMusic.IsLike  = !selectedMusic.IsLike;
+               var isUpdated         = await _musicService.UpdateSong(selectedMusic);
+
+               FavoriteMusicList.Clear();
+               FavoriteMusicList = await _musicService.GetAllSongs();
+
+               if (selectedMusic.IsLike && isUpdated)
+               {
+                  IsUpdated = true;
+                  _dialogService.Toast(Constants.IncludeMusicMessage, new TimeSpan(500));
+               }
+               else
+               {
+                  IsUpdated = false;
+                  _dialogService.Toast(Constants.RemoveMusicMessage, new TimeSpan(500));
+               }
+
+               MessagingCenter.Send(this, Constants.MessagingCenterReload);
+            }
+         }
+         catch (Exception ex)
+         {
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.LikeErrorMessage, Constants.LikeErrorTitle, Constants.OkText);
+         }
+                           
       }
 
       public async Task GetSongs()
       {
          try
          {
-            using (UserDialogs.Instance.Loading())
-            {
-               if ( string.IsNullOrEmpty(Preferences.Get("dataUpdated", null)) )
-               {
-                  var SongsData = new ObservableCollection<Music>();
-                  var songs     = await MusicService.GetAllSongs(1, 10);
-                  songs.ForEach(x =>
-                  {
-                     SongsData.Add(x);
-                  });
-
-                  var saveData = JsonConvert.SerializeObject(SongsData.ToList());
-                  Preferences.Set("dataUpdated", saveData);
-
-                  DefineGreeting();
-                  MyPlaylist          = Playlist.PopularPlaylist();
-                  RecentlyPlayedTitle = "Recently played";
-                  TopMusicTitle       = "Top Music";
-                  FavoriteMusicList   = SongsData;
-               }
-               else
-               {
-                  DefineGreeting();
-                  MyPlaylist           = Playlist.PopularPlaylist();
-                  RecentlyPlayedTitle  = "Recently played";
-                  TopMusicTitle        = "Top Music";
-                  var dataRetrieved    = JsonConvert.DeserializeObject<List<Music>>(Preferences.Get("dataUpdated", null));                  
-                  var collection       = new ObservableCollection<Music>();
-                  dataRetrieved.ForEach( x => collection.Add(x) );
-                  FavoriteMusicList    = collection;                  
-               }               
+            using ( _dialogService.Dialog() )
+            {               
+               DefineGreeting();
+               MyPlaylist          = await _musicService.GetPlayLists();
+               FavoriteMusicList   = await _musicService.GetAllSongs();              
+               RecentlyPlayedTitle = Constants.RecentlyPlayedTitle;
+               TopMusicTitle       = Constants.TopMusicTitle;               
             }            
          }
-         catch (Exception)
+         catch (Exception ex)
          {
-            throw;
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.GetSongError, Constants.GetSongTitle, Constants.OkText);
          }
-      }      
-
-      public MusicPageViewModel()
-      {         
       }
+
+      #endregion          
+      
    }
 }

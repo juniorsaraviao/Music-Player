@@ -1,27 +1,35 @@
-﻿using Acr.UserDialogs;
+﻿using Autofac;
+using MusicPlayer.Constant;
 using MusicPlayer.Model;
+using MusicPlayer.Service.Interfaces;
 using MusicPlayer.View;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace MusicPlayer.ViewModel
 {
    public class FavoritePageViewModel : BaseViewModel
    {
-      private ObservableCollection<Music> _favoritePlaylist;
-      private bool                        _isVisibleList;
-      private string                      _favoriteMusicTitle;
-      private int                         _height;
-      public bool IsNotVisibleList => !IsVisibleList;
 
-      public ObservableCollection<Music> FavoritePlaylist
+      #region Fields
+
+      private readonly IMusicService  _musicService;
+      private readonly IDialogService _dialogService;
+      private          IList<Music>   _favoritePlaylist;
+      private          bool           _isVisibleList;
+      private          string         _favoriteMusicTitle;
+      private          int            _height;      
+
+      #endregion
+
+      #region Properties
+
+      public IList<Music> FavoritePlaylist
       {
          get => _favoritePlaylist;
          set
@@ -59,47 +67,79 @@ namespace MusicPlayer.ViewModel
          }
       }
 
+      public bool IsNotVisibleList => !IsVisibleList;
+
+      public string ErrorMessage { get; set; }
+
+      #endregion
+
+      #region Command
+
       public ICommand PlayCommand => new Command<Music>( PlayMethod );
+
+      #endregion
+
+      #region Constructor
+
+      public FavoritePageViewModel() : this( 
+         DIServiceContainer.Container.Resolve<IMusicService>(), 
+         DIServiceContainer.Container.Resolve<IDialogService>()
+      ) 
+      {
+
+      }
+
+      public FavoritePageViewModel( 
+         IMusicService  musicService,
+         IDialogService dialogService
+      )
+      {
+         _musicService    = musicService;
+         _dialogService   = dialogService;
+         FavoritePlaylist = new ObservableCollection<Music>();
+      }
+
+      #endregion
+
+      #region Method
 
       private async void PlayMethod( Music selectedMusic )
       {
          await Application.Current.MainPage.Navigation.PushModalAsync( new PlayPage( selectedMusic ) );
-      }
-
-      public FavoritePageViewModel()
-      {
-         FavoritePlaylist = new ObservableCollection<Music>();
-         MessagingCenter.Subscribe<MusicPageViewModel>(this, "Reload", (sender) => {
-            GetFavoritePlaylist();
-         });
-      }
+      }      
       
-      public void GetFavoritePlaylist()
+      public async Task GetFavoritePlaylist()
       {
-         using (UserDialogs.Instance.Loading())
+         try
          {
-            if (string.IsNullOrEmpty(Preferences.Get("dataUpdated", null)))
+            using ( _dialogService.Dialog() )
             {
-               IsVisibleList = false;
-            }
-            else
-            {
-               var dataRetrieved = JsonConvert.DeserializeObject<List<Music>>(Preferences.Get("dataUpdated", null))
-                                    .Where(x => x.IsLike);
-               if (dataRetrieved.Any())
+               var dataRetrieved = await _musicService.GetAllSongs();
+               var likeMusic     = dataRetrieved.Where( x => x.IsLike ).ToList(); 
+               if (likeMusic.Any())
                {
-                  var collection   = new ObservableCollection<Music>();
-                  dataRetrieved.ForEach(x => collection.Add(x));
-                  FavoritePlaylist = collection;
-                  IsVisibleList    = true;
-                  Height           = collection.Count * 80;
+
+                  FavoritePlaylist   = likeMusic;
+                  IsVisibleList      = true;
+                  Height             = likeMusic.Count * 90;
+                  FavoriteMusicTitle = Constants.EnjoyMusicTitle;
                }
                else
                {
                   IsVisibleList = false;
                }
+
             }
-         }            
+         }
+         catch (Exception ex)
+         {
+            ErrorMessage = ex.Message;
+            _dialogService.Alert(Constants.GetFavoriteMusicError, Constants.GetFavoriteMusicTitle, Constants.OkText);
+         }
+                     
       }
+
+      #endregion
+      
    }
 }

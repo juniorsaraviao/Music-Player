@@ -3,8 +3,6 @@ using MediaManager;
 using MusicPlayer.Model;
 using MusicPlayer.Util;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,6 +11,9 @@ namespace MusicPlayer.ViewModel
 {
    public class PlayPageViewModel : BaseViewModel
    {
+
+      #region Fields
+
       private Music     _selectedMusic;
       private string    _playPauseImage;
       private double    _maximum = 100f;
@@ -20,6 +21,11 @@ namespace MusicPlayer.ViewModel
       private TimeSpan  _position;
       private string    _initialTime;
       private TimeSpan  _duration;
+      private bool      _isClicked = false;
+
+      #endregion
+
+      #region Properties
 
       public Music SelectedMusic
       {
@@ -88,9 +94,27 @@ namespace MusicPlayer.ViewModel
          }
       }
 
+      #endregion
+
+      #region Commands
+
       public ICommand BackwardCommand  => new Command( async () => await BackwardPosition() );
       public ICommand ForwardCommand   => new Command( async () => await ForwardPosition() );
       public ICommand PlayPauseCommand => new Command( async () => await PausePlay_OnTapped() );
+
+      #endregion
+
+      #region Constructor
+
+      public PlayPageViewModel(Music selectedMusic)
+      {
+         SelectedMusic = selectedMusic;
+         CrossMediaManager.Current.Stop();
+      }
+
+      #endregion
+
+      #region Method
 
       public async Task BackwardPosition()
       {
@@ -100,7 +124,7 @@ namespace MusicPlayer.ViewModel
       {
          await CrossMediaManager.Current.StepForward();
       }
-      private bool _isClicked = false;
+      
       private async Task PausePlay_OnTapped()
       {
          if ( _isClicked )
@@ -115,13 +139,7 @@ namespace MusicPlayer.ViewModel
             PlayPauseImg = FontAwesomeIcon.PlayButton;
             _isClicked = true;
          }
-      }
-
-      public PlayPageViewModel(Music selectedMusic)
-      {
-         SelectedMusic = selectedMusic;
-         CrossMediaManager.Current.Stop();
-      }
+      }      
 
       public async Task PlayMusic()
       {
@@ -165,5 +183,8 @@ namespace MusicPlayer.ViewModel
             PlayPauseImg = FontAwesomeIcon.PlayButton;
          }
       }
+
+      #endregion
+      
    }
 }
